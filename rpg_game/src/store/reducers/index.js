@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
-import workouts from "./workouts";
+import grid from "./grid";
 import authentication from "./authentication";
 
 const appReducer = combineReducers({
-  workouts: workouts,
+  grid,
   authentication,
 });
 
