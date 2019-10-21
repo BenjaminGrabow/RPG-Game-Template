@@ -1,11 +1,14 @@
 import React from 'react';
-import Grid from "./components/Grid/Grid";
+import Street from "./components/Maps/Street/Grid/Grid";
+import Forest from "./components/Maps/Forest/Grid/Grid";
+import { Route } from "react-router-dom";
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <Grid/>
+      <Route exact path="/" component={Street}/>
+      <Route path="/forest" component={Forest}/>
     </div>
   );
 }

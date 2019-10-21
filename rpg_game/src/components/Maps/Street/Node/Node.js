@@ -1,15 +1,16 @@
 import React from "react";
-import player from "../player.png";
-import tree1 from "../tree_one.png";
-import tree2 from "../tree_two.png";
-import tree3 from "../tree_three.png";
-import grave1 from "../grave.png";
-import gold1 from "../gold_one.png";
+import player from "../../character_one.png";
+
+import goldStatueOne from "../images/goldStatue.png";
+import skeletonOne from "../images/skeleton.png";
+import exit from "../images/toForest.png";
+// import grave1 from "../images/grave.png";
+// import gold1 from "../images/gold_one.png";
 
 
 class Node extends React.Component {
   render() {
-    const { i, j, start, treeOne, treeTwo, treeThree, grave, goldOne } = this.props;
+    const { i, j, start, goldStatue, skeleton, toForest } = this.props;
 
     return (
       <td className="node" id={`${i} ${j}`}>
@@ -25,64 +26,40 @@ class Node extends React.Component {
               height: `40px`
             }}
           />
-        ) : treeOne ? (
+        ) : goldStatue ? (
           <div
             style={{
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              backgroundImage: `url('${tree1}')`,
+              backgroundImage: `url('${goldStatueOne}')`,
               backgroundPosition: "0 0",
-              width: `60px`,
-              height: `50px`
+              width: `40px`,
+              height: `65px`
             }}
           />
-        ) : treeTwo ? (
+        ) : skeleton ? (
           <div
             style={{
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              backgroundImage: `url('${tree2}')`,
+              backgroundImage: `url('${skeletonOne}')`,
               backgroundPosition: "0 0",
               width: `60px`,
-              height: `50px`
+              height: `35px`
             }}
           />
-        ) : treeThree ? (
+        ) : toForest ? (
           <div
             style={{
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              backgroundImage: `url('${tree3}')`,
-              backgroundPosition: "0 0",
-              width: `60px`,
-              height: `50px`
-            }}
-          />
-        ) : grave ? (
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundImage: `url('${grave1}')`,
+              backgroundImage: `url('${exit}')`,
               backgroundPosition: "0 0",
               width: `35px`,
               height: `40px`
-            }}
-          />
-        ) : goldOne ? (
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundImage: `url('${gold1}')`,
-              backgroundPosition: "0 0",
-              width: `70px`,
-              height: `63px`
             }}
           />
         ) : (

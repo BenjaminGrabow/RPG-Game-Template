@@ -1,33 +1,34 @@
 import React from "react";
-import Node from "./Node/Node";
-import grass from "./grass.jpg"
+import Node from "../Node/Node";
+import grass from "../images/background_two.png"
 import styled from "styled-components";
+import createForest from "../Forest";
+import { withRouter, NavLink } from 'react-router-dom';
 
 const StyledAStar = styled.div`
   display: flex;
 
   .grid {
-  background-image: url(${grass});
+  background-image: url(${grass});  
   }
 
   .node {
-    /* border: 0.1rem solid #3f51b5; */
-    width: 4rem;
-    height: 4rem;
+    width: 2rem;
+    height: 2rem;
   }
 `;
 
-export default class Grid extends React.Component {
+class Grid extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       grid: null,
-      mouseIsPressed: false
     };
   }
   componentDidMount = () => {
-    const newGrid = createGrid();
-    console.log(newGrid);
+    console.log(this.state.grid)
+    const newGrid = createForest();
+
     this.setState({
       grid: newGrid
     });
@@ -35,9 +36,13 @@ export default class Grid extends React.Component {
     window.addEventListener("keydown", e => {
       this.handleKeyDown(e);
     });
+
+    grid = newGrid;
+    playerPosition = grid[0][0];
   };
 
   handleKeyDown = e => {
+    console.log(this.props.location)
     switch (e.keyCode) {
       case 40:
         // down
@@ -77,6 +82,9 @@ export default class Grid extends React.Component {
         // right
         if (playerPosition.j + 1 !== cols) {
           const positionRight = grid[playerPosition.i][playerPosition.j + 1];
+          if(positionRight.toStreet) {
+            this.props.history.push("/");
+          }
           if (playerPosition.neighbors.includes(positionRight) && !positionRight.treeOne && !positionRight.treeTwo && !positionRight.treeThree) {
             const newGrid = movePlayer(
               this.state.grid,
@@ -94,6 +102,9 @@ export default class Grid extends React.Component {
         // up
         if (playerPosition.i !== 0) {
           const positionUp = grid[playerPosition.i - 1][playerPosition.j];
+          if(positionUp.toStreet) {
+            this.props.history.push("/");
+          }
           if (playerPosition.neighbors.includes(positionUp) && !positionUp.treeOne && !positionUp.treeTwo && !positionUp.treeThree) {
             const newGrid = movePlayer(
               this.state.grid,
@@ -131,8 +142,7 @@ export default class Grid extends React.Component {
                         treeThree={element.treeThree}
                         goldOne={element.goldOne}
                         grave={element.grave}
-                        // end={element.end}
-                        // wall={element.wall}
+                        toStreet={element.toStreet}
                       />
                     );
                   });
@@ -141,66 +151,18 @@ export default class Grid extends React.Component {
               : null}
           </tbody>
         </table>
+        <NavLink to="/">FOREST</NavLink>
       </StyledAStar>
     );
   }
 }
 
-const grid = [];
+export default Grid
+
 const rows = 10;
 const cols = 15;
 let playerPosition;
-
-const createGrid = () => {
-  for (let i = 0; i < rows; i++) {
-    const currentRow = [];
-    for (let j = 0; j < cols; j++) {
-      currentRow.push(createNode(i, j));
-    }
-    grid.push(currentRow);
-  }
-
-  for (let i = 0; i < rows; i++) {
-    for (let j = 0; j < cols; j++) {
-      addNeighbors(i, j);
-    }
-
-    playerPosition = grid[0][0];
-  }
-
-  return grid;
-};
-
-const createNode = (i, j) => {
-  return {
-    i: i,
-    j: j,
-    start: i === 0 && j === 0, // create start point
-    //  end: end, // create end point
-    neighbors: [],
-    treeOne: i === 0 && j === 5 || i === 0 && j === 6 || i === 1 && j === 5 || i === 0 && j === 7 || i === 1 && j === 6 || i === 1 && j === 7,
-    treeTwo: i === 5 && j === 10 || i === 5 && j === 11 || i === 5 && j === 12,
-    treeThree: i === 8 && j === 12 || i === 8 && j === 13 || i === 9 && j === 13,
-    grave: i === 0 && j === 8,
-    goldOne: i === 0 && j === 9,
-    // add other neccessary key value pairs for more functionality
-  };
-};
-
-const addNeighbors = (i, j) => {
-  if (i < rows - 1) {
-    grid[i][j].neighbors.push(grid[i + 1][j]);
-  }
-  if (i > 0) {
-    grid[i][j].neighbors.push(grid[i - 1][j]);
-  }
-  if (j < cols - 1) {
-    grid[i][j].neighbors.push(grid[i][j + 1]);
-  }
-  if (j > 0) {
-    grid[i][j].neighbors.push(grid[i][j - 1]);
-  }
-};
+let grid;
 
 const movePlayer = (grid, i, j) => {
   grid[playerPosition.i][playerPosition.j].start = false;
