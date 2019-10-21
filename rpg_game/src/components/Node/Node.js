@@ -1,5 +1,7 @@
 import React from "react";
-import player from "./images/character_one.png";
+import playerOne from "./images/character_one.png";
+import playerTwo from "./images/character_two.png";
+
 
 // FOREST
 import tree1 from "./images/tree_one.png";
@@ -16,7 +18,7 @@ import exitForest from "./images/toForest.png";
 
 class Node extends React.Component {
   render() {
-    const { i, j, start, treeOne, treeTwo, treeThree, grave, goldOne, toStreet, goldStatue, skeleton, toForest } = this.props;
+    const { i, j, start, treeOne, treeTwo, treeThree, grave, goldOne, toStreet, goldStatue, skeleton, toForest, character } = this.props;
 
     return (
       <td className="node" id={`${i} ${j}`}>
@@ -26,10 +28,10 @@ class Node extends React.Component {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              backgroundImage: `url('${player}')`,
+              backgroundImage: `url('${character}')`,
               backgroundPosition: "0 0",
-              width: `40px`,
-              height: `40px`
+              width: `46px`,
+              height: `49px`
             }}
           />
           // FOR FOREST

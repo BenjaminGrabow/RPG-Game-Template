@@ -7,6 +7,7 @@ import createStreet from "../Maps/Street/StreetFunctions";
 import { connect } from "react-redux";
 import Node from "../Node/Node";
 import { makeStreetGrid, makeForestGrid } from "../../store/actions/gridActions";
+import playerOne from "../Node/images/character_two.png";
 
 const StyledMainGame = styled.div`
   display: flex;
@@ -16,8 +17,8 @@ const StyledMainGame = styled.div`
   }
 
   .node {
-    width: 2rem;
-    height: 2rem;
+    width: 4rem;
+    height: 4rem;
   }
 `;
 
@@ -184,6 +185,8 @@ class MainGame extends React.Component {
                         goldStatue={element.goldStatue}
                         skeleton={element.skeleton}
                         toForest={element.toForest}
+
+                        character={playerOne}
                       />
                     );
                   });
