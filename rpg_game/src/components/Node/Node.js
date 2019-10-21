@@ -28,7 +28,7 @@ class Node extends React.Component {
               alignItems: "center",
               backgroundImage: `url('${character}')`,
               backgroundPosition: "0 0",
-              width: `46px`,
+              width: `45px`,
               height: `49px`
             }}
           />

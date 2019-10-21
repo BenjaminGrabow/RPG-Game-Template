@@ -6,8 +6,15 @@ import createForest from "../Maps/Forest/ForestFunctions";
 import createStreet from "../Maps/Street/StreetFunctions";
 import { connect } from "react-redux";
 import Node from "../Node/Node";
-import { makeStreetGrid, makeForestGrid } from "../../store/actions/gridActions";
-import playerOne from "../Node/images/character_two.png";
+import {
+  makeStreetGrid,
+  makeForestGrid
+} from "../../store/actions/gridActions";
+import characterOne from "../Node/images/character_one.png";
+import characterTwo from "../Node/images/character_two.png";
+import characterThree from "../Node/images/character_three.png";
+import characterFour from "../Node/images/character_four.png";
+import characterFive from "../Node/images/character_five.png";
 
 const StyledMainGame = styled.div`
   display: flex;
@@ -37,7 +44,7 @@ class MainGame extends React.Component {
         // down
         if (playerPosition.i + 1 !== rows) {
           const positionDown = grid[playerPosition.i + 1][playerPosition.j];
-          if(positionDown.toForest) {
+          if (positionDown.toForest) {
             this.createForest();
           }
           if (
@@ -62,7 +69,7 @@ class MainGame extends React.Component {
         // left
         if (playerPosition.j !== 0) {
           const positionLeft = grid[playerPosition.i][playerPosition.j - 1];
-          if(positionLeft.toForest) {
+          if (positionLeft.toForest) {
             this.createForest();
           }
           if (
@@ -87,8 +94,8 @@ class MainGame extends React.Component {
         // right
         if (playerPosition.j + 1 !== cols) {
           const positionRight = grid[playerPosition.i][playerPosition.j + 1];
-          if(positionRight.toForest) {                     
-            this.createForest();  
+          if (positionRight.toForest) {
+            this.createForest();
           }
           if (positionRight.toStreet) {
             this.createStreet();
@@ -142,7 +149,7 @@ class MainGame extends React.Component {
   };
 
   createForest = () => {
-    const forestGrid = createForest([])
+    const forestGrid = createForest([]);
     this.props.makeForestGrid(forestGrid);
     grid = forestGrid;
     playerPosition = grid[0][0];
@@ -150,7 +157,7 @@ class MainGame extends React.Component {
   };
 
   createStreet = () => {
-    const streetGrid = createStreet([])
+    const streetGrid = createStreet([]);
     this.props.makeStreetGrid(streetGrid);
     grid = streetGrid;
     playerPosition = grid[0][0];
@@ -161,9 +168,7 @@ class MainGame extends React.Component {
     console.log(this.props.grid);
     return (
       <StyledMainGame>
-        <table
-          className="grid"
-        >
+        <table className="grid">
           <tbody>
             {this.props.grid
               ? this.props.grid.map((item, i) => {
@@ -185,8 +190,17 @@ class MainGame extends React.Component {
                         goldStatue={element.goldStatue}
                         skeleton={element.skeleton}
                         toForest={element.toForest}
-
-                        character={playerOne}
+                        character={
+                          this.props.character === "characterOne"
+                            ? characterOne
+                            : this.props.character === "characterTwo"
+                            ? characterTwo
+                            : this.props.character === "characterThree"
+                            ? characterThree
+                            : this.props.character === "characterFour"
+                            ? characterFour
+                            : characterFive
+                        }
                       />
                     );
                   });
@@ -202,11 +216,15 @@ class MainGame extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    grid: state.grid.grid
+    grid: state.grid.grid,
+    character: state.character.character
   };
 };
 
-export default connect(mapStateToProps, {makeForestGrid, makeStreetGrid })(MainGame);
+export default connect(
+  mapStateToProps,
+  { makeForestGrid, makeStreetGrid }
+)(MainGame);
 
 const rows = 10;
 const cols = 15;

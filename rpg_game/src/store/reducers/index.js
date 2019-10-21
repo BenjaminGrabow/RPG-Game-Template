@@ -1,9 +1,11 @@
 import { combineReducers } from "redux";
 import grid from "./grid";
+import character from "./character";
 import authentication from "./authentication";
 
 const appReducer = combineReducers({
   grid,
+  character,
   authentication,
 });
 
