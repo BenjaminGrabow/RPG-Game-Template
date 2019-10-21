@@ -1,6 +1,4 @@
 import React from "react";
-import playerOne from "./images/character_one.png";
-import playerTwo from "./images/character_two.png";
 
 
 // FOREST
