@@ -8,7 +8,7 @@ import exit from "../images/toForest.png";
 // import gold1 from "../images/gold_one.png";
 
 
-class Node extends React.Component {
+class StreetNode extends React.Component {
   render() {
     const { i, j, start, goldStatue, skeleton, toForest } = this.props;
 
@@ -78,4 +78,4 @@ class Node extends React.Component {
   }
 }
 
-export default Node;
+export default StreetNode;

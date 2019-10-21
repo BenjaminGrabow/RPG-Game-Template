@@ -1,11 +1,11 @@
 import React from "react";
-import Node from "../Node/Node";
+import Node from "./Node/StreetNode";
 import street from "../images/street.png";
 import styled from "styled-components";
-import createStreet from "../Street";
-import { withRouter, NavLink } from 'react-router-dom';
+import createStreet from "./Street";
+import connect from "react-redux";
 
-const StyledAStar = styled.div`
+const StyledStreetGrid = styled.div`
   display: flex;
 
   .grid {
@@ -18,7 +18,7 @@ const StyledAStar = styled.div`
   }
 `;
 
-class Grid extends React.Component {
+class StreetGrid extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -144,13 +144,9 @@ class Grid extends React.Component {
     }
   };
 
-  componentWillUnmount = () => {
-
-  };
-
   render() {
     return (
-      <StyledAStar>
+      <StyledStreetGrid>
         <table className="grid">
           <tbody>
             {this.state.grid
@@ -174,12 +170,18 @@ class Grid extends React.Component {
           </tbody>
         </table>
         <NavLink to="/forest">FOREST</NavLink>
-      </StyledAStar>
+      </StyledStreetGrid>
     );
   }
 }
 
-export default Grid
+const mapStateToProps = state => {
+  return {
+    grid: state.grid.grid 
+  }
+};
+ 
+export default connect(mapStateToProps)(StreetGrid);
 
 const rows = 10;
 const cols = 15;

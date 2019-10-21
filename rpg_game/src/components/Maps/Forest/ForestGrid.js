@@ -1,11 +1,11 @@
 import React from "react";
-import Node from "../Node/Node";
+import Node from "./Node/Node";
 import grass from "../images/background_two.png"
 import styled from "styled-components";
 import createForest from "../Forest";
-import { withRouter, NavLink } from 'react-router-dom';
+import connect from "react-redux";
 
-const StyledAStar = styled.div`
+const StyledForestGrid = styled.div`
   display: flex;
 
   .grid {
@@ -18,13 +18,8 @@ const StyledAStar = styled.div`
   }
 `;
 
-class Grid extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      grid: null,
-    };
-  }
+class ForestGrid extends React.Component {
+
   componentDidMount = () => {
     console.log(this.state.grid)
     const newGrid = createForest();
@@ -125,7 +120,7 @@ class Grid extends React.Component {
 
   render() {
     return (
-      <StyledAStar>
+      <StyledForestGrid>
         <table className="grid">
           <tbody>
             {this.state.grid
@@ -151,13 +146,18 @@ class Grid extends React.Component {
               : null}
           </tbody>
         </table>
-        <NavLink to="/">FOREST</NavLink>
-      </StyledAStar>
+      </StyledForestGrid>
     );
   }
 }
 
-export default Grid
+const mapStateToProps = state => {
+  return {
+    grid: state.grid.grid 
+  }
+};
+
+export default connect(mapStateToProps)(ForestGrid);
 
 const rows = 10;
 const cols = 15;
@@ -168,6 +168,5 @@ const movePlayer = (grid, i, j) => {
   grid[playerPosition.i][playerPosition.j].start = false;
   playerPosition = grid[i][j];
   grid[i][j].start = true;
-  console.log(grid);
   return grid;
 };

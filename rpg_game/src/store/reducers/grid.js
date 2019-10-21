@@ -8,12 +8,18 @@ const initialState = {
 
 const workouts = (state = initialState, action) => {
   switch (action.type) {
-    case type.ADD_STREET_GRID:
+    case type.MAKE_FOREST_GRID:
       return {
         ...state,
         grid: action.payload
       };
 
+      case type.MAKE_STREET_GRID:
+        return {
+          ...state,
+          grid: action.payload
+        };
+  
     default:
       return state;
   }
