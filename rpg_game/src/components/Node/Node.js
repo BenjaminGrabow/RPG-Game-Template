@@ -1,6 +1,5 @@
 import React from "react";
 
-
 // FOREST
 import tree1 from "./images/tree_one.png";
 import tree2 from "./images/tree_two.png";
@@ -13,11 +12,36 @@ import doorOne from "./images/door.png";
 import goldStatueOne from "./images/goldStatue.png";
 import skeletonOne from "./images/skeleton.png";
 import exitForest from "./images/toForest.png";
-
+// HOUSE
+import chairOne from "./images/chair.png";
+import carpetOne from "./images/carpet.png";
+import cabinetOne from "./images/small_cabinet.png";
+import cabinetTwo from "./images/medium_cabinet.png";
+import cabinetThree from "./images/big_cabinet.png";
 
 class Node extends React.Component {
   render() {
-    const { i, j, start, treeOne, treeTwo, treeThree, grave, goldOne, toStreet, goldStatue, skeleton, toForest, character, toHouse } = this.props;
+    const {
+      i,
+      j,
+      start,
+      treeOne,
+      treeTwo,
+      treeThree,
+      grave,
+      goldOne,
+      toStreet,
+      goldStatue,
+      skeleton,
+      toForest,
+      character,
+      toHouse,
+      carpet,
+      chair,
+      smallCabinet,
+      mediumCabinet,
+      bigCabinet
+    } = this.props;
 
     return (
       <td className="node" id={`${i} ${j}`}>
@@ -33,8 +57,8 @@ class Node extends React.Component {
               height: `49px`
             }}
           />
-          // FOR FOREST
-        ) : treeOne ? (
+        ) : // FOR FOREST
+        treeOne ? (
           <div
             style={{
               display: "flex",
@@ -106,7 +130,7 @@ class Node extends React.Component {
               height: `90px`
             }}
           />
-        ): toHouse ? (
+        ) : toHouse ? (
           <div
             style={{
               display: "flex",
@@ -118,8 +142,8 @@ class Node extends React.Component {
               height: `55px`
             }}
           />
-        )  // FOR STREET
-        : goldStatue ? (
+        ) : // FOR STREET
+        goldStatue ? (
           <div
             style={{
               display: "flex",
@@ -153,6 +177,67 @@ class Node extends React.Component {
               backgroundPosition: "0 0",
               width: `35px`,
               height: `40px`
+            }}
+          />
+        ) : // FOR HOUSE
+        carpet ? (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundImage: `url('${carpetOne}')`,
+              backgroundPosition: "0 0",
+              width: `30px`,
+              height: `40px`
+            }}
+          />
+        ) : chair ? (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundImage: `url('${chairOne}')`,
+              backgroundPosition: "0 0",
+              width: `28px`,
+              height: `40px`
+            }}
+          />
+        ) : smallCabinet ? (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundImage: `url('${cabinetOne}')`,
+              backgroundPosition: "0 0",
+              width: `40px`,
+              height: `40px`
+            }}
+          />
+        ) : mediumCabinet ? (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundImage: `url('${cabinetTwo}')`,
+              backgroundPosition: "0 0",
+              width: `40px`,
+              height: `65px`
+            }}
+          />
+        ) : bigCabinet ? (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundImage: `url('${cabinetThree}')`,
+              backgroundPosition: "0 0",
+              width: `95px`,
+              height: `95px`
             }}
           />
         ) : (

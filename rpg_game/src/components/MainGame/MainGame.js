@@ -205,6 +205,12 @@ class MainGame extends React.Component {
                         goldStatue={element.goldStatue}
                         skeleton={element.skeleton}
                         toForest={element.toForest}
+                        // HOUSE
+                        carpet={element.carpet}
+                        smallCabinet={element.smallCabinet}
+                        mediumCabinet={element.mediumCabinet}
+                        bigCabinet={element.bigCabinet}
+                        chair={element.chair}
                         // Character
                         character={
                           this.props.character === "characterOne"
