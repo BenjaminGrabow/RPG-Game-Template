@@ -19,6 +19,12 @@ const workouts = (state = initialState, action) => {
           ...state,
           grid: action.payload
         };
+      
+        case type.MAKE_HOUSE_GRID:
+          return {
+            ...state,
+            grid: action.payload
+          };
   
     default:
       return state;

@@ -8,6 +8,7 @@ import tree3 from "./images/tree_three.png";
 import grave1 from "./images/grave.png";
 import gold1 from "./images/gold_one.png";
 import exitStreet from "./images/toStreet.png";
+import doorOne from "./images/door.png";
 // STREET
 import goldStatueOne from "./images/goldStatue.png";
 import skeletonOne from "./images/skeleton.png";
@@ -16,7 +17,7 @@ import exitForest from "./images/toForest.png";
 
 class Node extends React.Component {
   render() {
-    const { i, j, start, treeOne, treeTwo, treeThree, grave, goldOne, toStreet, goldStatue, skeleton, toForest, character } = this.props;
+    const { i, j, start, treeOne, treeTwo, treeThree, grave, goldOne, toStreet, goldStatue, skeleton, toForest, character, toHouse } = this.props;
 
     return (
       <td className="node" id={`${i} ${j}`}>
@@ -105,7 +106,19 @@ class Node extends React.Component {
               height: `90px`
             }}
           />
-        ) // FOR STREET
+        ): toHouse ? (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundImage: `url('${doorOne}')`,
+              backgroundPosition: "0 0",
+              width: `36px`,
+              height: `55px`
+            }}
+          />
+        )  // FOR STREET
         : goldStatue ? (
           <div
             style={{

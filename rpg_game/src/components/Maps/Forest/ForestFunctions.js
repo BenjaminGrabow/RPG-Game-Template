@@ -57,7 +57,8 @@ const createNode = (i, j) => {
       (i === 9 && j === 14),
     grave: i === 0 && j === 8,
     goldOne: i === 0 && j === 9,
-    toStreet: i === 0 && j === 14
+    toStreet: i === 0 && j === 14,
+    toHouse: i === 9 && j === 3
     // add other neccessary key value pairs for more functionality
   };
 };

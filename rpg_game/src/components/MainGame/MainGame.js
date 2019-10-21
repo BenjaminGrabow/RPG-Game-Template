@@ -1,14 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import grass from "./images/background_two.png";
+import grass from "./images/grass.png";
+import wood from "./images/wood.png";
 import street from "./images/street.png";
 import createForest from "../Maps/Forest/ForestFunctions";
 import createStreet from "../Maps/Street/StreetFunctions";
+import createHouse from "../Maps/House/HouseFunctions";
 import { connect } from "react-redux";
 import Node from "../Node/Node";
 import {
   makeStreetGrid,
-  makeForestGrid
+  makeForestGrid,
+  makeHouseGrid
 } from "../../store/actions/gridActions";
 import characterOne from "../Node/images/character_one.png";
 import characterTwo from "../Node/images/character_two.png";
@@ -46,6 +49,9 @@ class MainGame extends React.Component {
           const positionDown = grid[playerPosition.i + 1][playerPosition.j];
           if (positionDown.toForest) {
             this.createForest();
+          }
+          if (positionDown.toHouse) {
+            this.createHouse();
           }
           if (
             playerPosition.neighbors.includes(positionDown) &&
@@ -164,6 +170,14 @@ class MainGame extends React.Component {
     document.querySelector(".grid").style.backgroundImage = `url(${street})`;
   };
 
+  createHouse = () => {
+    const houseGrid = createHouse([]);
+    this.props.makeHouseGrid(houseGrid);
+    grid = houseGrid;
+    playerPosition = grid[0][0];
+    document.querySelector(".grid").style.backgroundImage = `url(${wood})`;
+  };
+
   render() {
     console.log(this.props.grid);
     return (
@@ -186,6 +200,7 @@ class MainGame extends React.Component {
                         goldOne={element.goldOne}
                         grave={element.grave}
                         toStreet={element.toStreet}
+                        toHouse={element.toHouse}
                         // STREET
                         goldStatue={element.goldStatue}
                         skeleton={element.skeleton}
@@ -224,7 +239,7 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { makeForestGrid, makeStreetGrid }
+  { makeForestGrid, makeStreetGrid, makeHouseGrid }
 )(MainGame);
 
 const rows = 10;
