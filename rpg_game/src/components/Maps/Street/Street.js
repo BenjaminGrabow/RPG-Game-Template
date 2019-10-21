@@ -1,51 +1,23 @@
-let grid = [];
-const rows = 10;
-const cols = 15;
+import React from 'react';
+import Grid from "../../Grid/Grid"
+import Node from "../../Grid/Node";
+import connect from "react-redux";
 
-const createStreet = () => {
-  for (let i = 0; i < rows; i++) {
-    const currentRow = [];
-    for (let j = 0; j < cols; j++) {
-      currentRow.push(createNode(i, j));
-    }
-    grid.push(currentRow);
+class Street extends Component {
+  
+  render() { 
+    return ( 
+      <Grid>
+        <Node/>
+      </Grid>
+     );
   }
+}
 
-  for (let i = 0; i < rows; i++) {
-    for (let j = 0; j < cols; j++) {
-      addNeighbors(i, j);
-    }
-  }
-
-  return grid;
-};
-
-const createNode = (i, j) => {
+const mapStateToProps = state => {
   return {
-    i: i,
-    j: j,
-    start: i === 0 && j === 0, // create start point
-    neighbors: [],
-    goldStatue:
-      (i === 9 && j === 14) || (i === 0 && j === 14) || (i === 9 && j === 0),
-    skeleton: i === 5 && j === 7,
-    toForest: i === 9 && j === 8
-  };
-};
-
-const addNeighbors = (i, j) => {
-  if (i < rows - 1) {
-    grid[i][j].neighbors.push(grid[i + 1][j]);
-  }
-  if (i > 0) {
-    grid[i][j].neighbors.push(grid[i - 1][j]);
-  }
-  if (j < cols - 1) {
-    grid[i][j].neighbors.push(grid[i][j + 1]);
-  }
-  if (j > 0) {
-    grid[i][j].neighbors.push(grid[i][j - 1]);
+    grid: state.grid.grid 
   }
 };
-
-export default createStreet;
+ 
+export default connect(mapStateToProps)(Street);
