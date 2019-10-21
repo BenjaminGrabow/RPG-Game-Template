@@ -190,6 +190,7 @@ class MainGame extends React.Component {
                         goldStatue={element.goldStatue}
                         skeleton={element.skeleton}
                         toForest={element.toForest}
+                        // Character
                         character={
                           this.props.character === "characterOne"
                             ? characterOne
