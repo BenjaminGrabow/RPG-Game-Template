@@ -3,7 +3,7 @@ import * as type from "../actions/gridActions";
 const initialState = {
   grid: null,
   loading: null,
-  error: null,
+  error: null
 };
 
 const workouts = (state = initialState, action) => {
@@ -14,18 +14,24 @@ const workouts = (state = initialState, action) => {
         grid: action.payload
       };
 
-      case type.MAKE_STREET_GRID:
-        return {
-          ...state,
-          grid: action.payload
-        };
-      
-        case type.MAKE_HOUSE_GRID:
-          return {
-            ...state,
-            grid: action.payload
-          };
-  
+    case type.MAKE_STREET_GRID:
+      return {
+        ...state,
+        grid: action.payload
+      };
+
+    case type.MAKE_HOUSE_GRID:
+      return {
+        ...state,
+        grid: action.payload
+      };
+
+    case type.MAKE_GRAVEYARD_GRID:
+      return {
+        ...state,
+        grid: action.payload
+      };
+
     default:
       return state;
   }

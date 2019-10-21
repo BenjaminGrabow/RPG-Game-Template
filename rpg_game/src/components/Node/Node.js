@@ -18,6 +18,7 @@ import carpetOne from "./images/carpet.png";
 import cabinetOne from "./images/small_cabinet.png";
 import cabinetTwo from "./images/medium_cabinet.png";
 import cabinetThree from "./images/big_cabinet.png";
+import exitGraveyard from "./images/toGraveyard.png";
 
 class Node extends React.Component {
   render() {
@@ -40,7 +41,8 @@ class Node extends React.Component {
       chair,
       smallCabinet,
       mediumCabinet,
-      bigCabinet
+      bigCabinet,
+      toGraveyard
     } = this.props;
 
     return (
@@ -240,7 +242,20 @@ class Node extends React.Component {
               height: `95px`
             }}
           />
-        ) : (
+        ) :  toGraveyard ? (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundImage: `url('${exitGraveyard}')`,
+              backgroundPosition: "0 0",
+              width: `180px`,
+              height: `165px`
+            }}
+          />
+        ) : // GRAVEYARD
+         (
           <div
             style={{
               display: "flex",

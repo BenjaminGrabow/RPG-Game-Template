@@ -6,7 +6,7 @@ import street from "./images/street.png";
 import createForest from "../Maps/Forest/ForestFunctions";
 import createStreet from "../Maps/Street/StreetFunctions";
 import createHouse from "../Maps/House/HouseFunctions";
-import createHouse from "../Maps/Graveyard/GraveyardFunctions";
+import createGraveyard from "../Maps/Graveyard/GraveyardFunctions";
 import { connect } from "react-redux";
 import Node from "../Node/Node";
 import {
@@ -54,6 +54,9 @@ class MainGame extends React.Component {
           }
           if (positionDown.toHouse) {
             this.createHouse();
+          }
+          if (positionDown.toGraveyard) {
+            this.createGraveyard();
           }
           if (
             playerPosition.neighbors.includes(positionDown) &&
@@ -107,6 +110,9 @@ class MainGame extends React.Component {
           }
           if (positionRight.toStreet) {
             this.createStreet();
+          }
+          if (positionRight.toGraveyard) {
+            this.createGraveyard();
           }
           if (
             playerPosition.neighbors.includes(positionRight) &&
@@ -221,6 +227,7 @@ class MainGame extends React.Component {
                         mediumCabinet={element.mediumCabinet}
                         bigCabinet={element.bigCabinet}
                         chair={element.chair}
+                        toGraveyard={element.toGraveyard}
                         // GRAVEYARD
                         // Character
                         character={
