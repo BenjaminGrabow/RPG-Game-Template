@@ -6,12 +6,14 @@ import street from "./images/street.png";
 import createForest from "../Maps/Forest/ForestFunctions";
 import createStreet from "../Maps/Street/StreetFunctions";
 import createHouse from "../Maps/House/HouseFunctions";
+import createHouse from "../Maps/Graveyard/GraveyardFunctions";
 import { connect } from "react-redux";
 import Node from "../Node/Node";
 import {
   makeStreetGrid,
   makeForestGrid,
-  makeHouseGrid
+  makeHouseGrid,
+  makeGraveyardGrid,
 } from "../../store/actions/gridActions";
 import characterOne from "../Node/images/character_one.png";
 import characterTwo from "../Node/images/character_two.png";
@@ -178,6 +180,14 @@ class MainGame extends React.Component {
     document.querySelector(".grid").style.backgroundImage = `url(${wood})`;
   };
 
+  createGraveyard = () => {
+    const graveyardGrid = createGraveyard([]);
+    this.props.makeGraveyardGrid(graveyardGrid);
+    grid = graveyardGrid;
+    playerPosition = grid[0][0];
+    document.querySelector(".grid").style.backgroundImage = `url(${grass})`;
+  };
+
   render() {
     console.log(this.props.grid);
     return (
@@ -211,6 +221,7 @@ class MainGame extends React.Component {
                         mediumCabinet={element.mediumCabinet}
                         bigCabinet={element.bigCabinet}
                         chair={element.chair}
+                        // GRAVEYARD
                         // Character
                         character={
                           this.props.character === "characterOne"
@@ -245,7 +256,7 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { makeForestGrid, makeStreetGrid, makeHouseGrid }
+  { makeForestGrid, makeStreetGrid, makeHouseGrid, makeGraveyardGrid }
 )(MainGame);
 
 const rows = 10;
