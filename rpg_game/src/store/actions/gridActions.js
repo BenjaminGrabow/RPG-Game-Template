@@ -12,6 +12,6 @@ export const makeStreetGrid = (streetGrid) => {
 
 export const makeForestGrid = (forestGrid) => {
   return genericAction(MAKE_FOREST_GRID, forestGrid);
- };
+};
 
 

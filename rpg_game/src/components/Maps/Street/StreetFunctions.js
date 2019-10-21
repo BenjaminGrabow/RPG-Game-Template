@@ -1,8 +1,7 @@
-let grid = [];
 const rows = 10;
 const cols = 15;
 
-const createStreet = () => {
+const createStreet = (grid) => {
   for (let i = 0; i < rows; i++) {
     const currentRow = [];
     for (let j = 0; j < cols; j++) {
@@ -13,7 +12,7 @@ const createStreet = () => {
 
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
-      addNeighbors(i, j);
+      addNeighbors(grid, i, j);
     }
   }
 
@@ -33,7 +32,7 @@ const createNode = (i, j) => {
   };
 };
 
-const addNeighbors = (i, j) => {
+const addNeighbors = (grid, i, j) => {
   if (i < rows - 1) {
     grid[i][j].neighbors.push(grid[i + 1][j]);
   }

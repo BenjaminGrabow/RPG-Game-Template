@@ -1,5 +1,5 @@
 import React from "react";
-import player from "../../character_one.png";
+import player from "./images/character_one.png";
 
 // FOREST
 import tree1 from "./images/tree_one.png";
@@ -7,11 +7,11 @@ import tree2 from "./images/tree_two.png";
 import tree3 from "./images/tree_three.png";
 import grave1 from "./images/grave.png";
 import gold1 from "./images/gold_one.png";
-import exit from "./images/toStreet.png";
+import exitStreet from "./images/toStreet.png";
 // STREET
 import goldStatueOne from "./images/goldStatue.png";
 import skeletonOne from "./images/skeleton.png";
-import exit from "./images/toForest.png";
+import exitForest from "./images/toForest.png";
 
 
 class Node extends React.Component {
@@ -99,7 +99,7 @@ class Node extends React.Component {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              backgroundImage: `url('${exit}')`,
+              backgroundImage: `url('${exitStreet}')`,
               backgroundPosition: "0 0",
               width: `90px`,
               height: `90px`
@@ -136,7 +136,7 @@ class Node extends React.Component {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              backgroundImage: `url('${exit}')`,
+              backgroundImage: `url('${exitForest}')`,
               backgroundPosition: "0 0",
               width: `35px`,
               height: `40px`

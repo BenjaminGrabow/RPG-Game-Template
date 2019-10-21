@@ -1,47 +1,50 @@
 import React from "react";
 import styled from "styled-components";
-import grass from "./images/background_two.png"
+import grass from "./images/background_two.png";
 import street from "./images/street.png";
-import createForest from "../Forest";
-import createStreet from "./Street";
-import connect from "react-redux";
-import Node from "./Node/Node";
+import createForest from "../Maps/Forest/ForestFunctions";
+import createStreet from "../Maps/Street/StreetFunctions";
+import { connect } from "react-redux";
+import Node from "../Node/Node";
+import { makeStreetGrid, makeForestGrid } from "../../store/actions/gridActions";
 
 const StyledMainGame = styled.div`
-display: flex;
+  display: flex;
 
-.grid {
-background-image: url(${grass});  
-}
+  .grid {
+    background-image: url(${grass});
+  }
 
-.node {
-  width: 2rem;
-  height: 2rem;
-}
+  .node {
+    width: 2rem;
+    height: 2rem;
+  }
 `;
 
-
 class MainGame extends React.Component {
-
   componentDidMount = () => {
-    const newGrid = createForest();
+    this.createForest([]);
 
     window.addEventListener("keydown", e => {
       this.handleKeyDown(e);
     });
-
-    grid = newGrid;
-    playerPosition = grid[0][0];
   };
 
   handleKeyDown = e => {
-    console.log(this.props.location)
     switch (e.keyCode) {
       case 40:
         // down
         if (playerPosition.i + 1 !== rows) {
           const positionDown = grid[playerPosition.i + 1][playerPosition.j];
-          if (playerPosition.neighbors.includes(positionDown) && !positionDown.treeOne && !positionDown.treeTwo && !positionDown.treeThree) {
+          if(positionDown.toForest) {
+            this.createForest();
+          }
+          if (
+            playerPosition.neighbors.includes(positionDown) &&
+            !positionDown.treeOne &&
+            !positionDown.treeTwo &&
+            !positionDown.treeThree
+          ) {
             const newGrid = movePlayer(
               this.props.grid,
               playerPosition.i + 1,
@@ -58,7 +61,15 @@ class MainGame extends React.Component {
         // left
         if (playerPosition.j !== 0) {
           const positionLeft = grid[playerPosition.i][playerPosition.j - 1];
-          if (playerPosition.neighbors.includes(positionLeft) && !positionLeft.treeOne && !positionLeft.treeTwo && !positionLeft.treeThree) {
+          if(positionLeft.toForest) {
+            this.createForest();
+          }
+          if (
+            playerPosition.neighbors.includes(positionLeft) &&
+            !positionLeft.treeOne &&
+            !positionLeft.treeTwo &&
+            !positionLeft.treeThree
+          ) {
             const newGrid = movePlayer(
               this.props.grid,
               playerPosition.i,
@@ -75,10 +86,18 @@ class MainGame extends React.Component {
         // right
         if (playerPosition.j + 1 !== cols) {
           const positionRight = grid[playerPosition.i][playerPosition.j + 1];
-          if(positionRight.toStreet) {
-            this.props.history.push("/");
+          if(positionRight.toForest) {                     
+            this.createForest();  
           }
-          if (playerPosition.neighbors.includes(positionRight) && !positionRight.treeOne && !positionRight.treeTwo && !positionRight.treeThree) {
+          if (positionRight.toStreet) {
+            this.createStreet();
+          }
+          if (
+            playerPosition.neighbors.includes(positionRight) &&
+            !positionRight.treeOne &&
+            !positionRight.treeTwo &&
+            !positionRight.treeThree
+          ) {
             const newGrid = movePlayer(
               this.props.grid,
               playerPosition.i,
@@ -95,10 +114,15 @@ class MainGame extends React.Component {
         // up
         if (playerPosition.i !== 0) {
           const positionUp = grid[playerPosition.i - 1][playerPosition.j];
-          if(positionUp.toStreet) {
-            this.props.history.push("/");
+          if (positionUp.toStreet) {
+            this.createStreet();
           }
-          if (playerPosition.neighbors.includes(positionUp) && !positionUp.treeOne && !positionUp.treeTwo && !positionUp.treeThree) {
+          if (
+            playerPosition.neighbors.includes(positionUp) &&
+            !positionUp.treeOne &&
+            !positionUp.treeTwo &&
+            !positionUp.treeThree
+          ) {
             const newGrid = movePlayer(
               this.props.grid,
               playerPosition.i - 1,
@@ -116,10 +140,29 @@ class MainGame extends React.Component {
     }
   };
 
+  createForest = () => {
+    const forestGrid = createForest([])
+    this.props.makeForestGrid(forestGrid);
+    grid = forestGrid;
+    playerPosition = grid[0][0];
+    document.querySelector(".grid").style.backgroundImage = `url(${grass})`;
+  };
+
+  createStreet = () => {
+    const streetGrid = createStreet([])
+    this.props.makeStreetGrid(streetGrid);
+    grid = streetGrid;
+    playerPosition = grid[0][0];
+    document.querySelector(".grid").style.backgroundImage = `url(${street})`;
+  };
+
   render() {
+    console.log(this.props.grid);
     return (
       <StyledMainGame>
-        <table className="grid" style={{backgroundImage: `url(${background})`}}>
+        <table
+          className="grid"
+        >
           <tbody>
             {this.props.grid
               ? this.props.grid.map((item, i) => {
@@ -153,16 +196,15 @@ class MainGame extends React.Component {
     );
   }
 }
- 
+
 const mapStateToProps = state => {
   return {
-    grid: state.grid.grid 
-  }
+    grid: state.grid.grid
+  };
 };
 
-export default connect(mapStateToProps)(MainGame);
+export default connect(mapStateToProps, {makeForestGrid, makeStreetGrid })(MainGame);
 
-let background
 const rows = 10;
 const cols = 15;
 let playerPosition;
